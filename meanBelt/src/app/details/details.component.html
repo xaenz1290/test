@@ -1,0 +1,30 @@
+<section *ngIf='user'>
+  <h3>{{user.name}}'s bucket list</h3>
+  <h2>done</h2>
+  <div *ngFor='let item of user.items'>
+  <div *ngIf='item.status === true'>
+    <form  #newItemTwo ='ngForm' style="display: inline-block">
+      <input type="hidden"  name='_id' [ngModel]='item._id'>
+      <input type="hidden" name='status' ngModel=false> 
+      <input style="display: inline-block" *ngIf='userId === item.postedBy._id' (click)="onSubmit(newItemTwo.value)" name='status' type="checkbox" checked> 
+    </form>
+     <p>{{ item.postedBy.name }} {{ item.title }} {{ item.description }} {{ item.createdAt | date }}</p>
+  </div>
+  </div>
+  <h2>Pending</h2>
+   <div *ngFor='let item of user.items'>
+  <div class="list-group" *ngIf='item.status === false'>
+    
+    <form  #newItem ='ngForm' style="display: inline-block">
+           <input type="hidden"  name='_id' [ngModel]='item._id'>
+           <input type="hidden" name='status' ngModel=true> 
+           <input style="display: inline-block" *ngIf='userId === item.postedBy._id' (click)="onSubmit(newItem.value)" name='status' type="checkbox" unchecked>
+    </form>
+     <p style="display: inline-block"> {{ item.postedBy.name }} {{ item.title }} {{ item.description }} {{ item.createdAt | date }}  </p>
+  </div>
+  </div>
+  
+
+</section>
+
+

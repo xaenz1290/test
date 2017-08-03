@@ -1,0 +1,52 @@
+<div *ngIf='current'>
+  <h2>Hello {{ current.name }}</h2>
+
+<button (click)='logout()'>Logout</button>
+
+
+<fieldset>
+        <legend>Add an item to your list</legend>
+        <form (ngSubmit)='onSubmit(newItem.value)' #newItem ='ngForm'>
+        <!--<input type="hidden"  name='postedBy' [ngModel]='item.postedBy' #postedBy='ngModel'>-->
+        <!--<input type="hidden"  name='postedBy' [ngModel]='current._id'>-->
+
+            <div class="form-group">          
+                <label for="">Title</label>
+                <input id='title' type="text" class="form-control" name='title' [(ngModel)]='item.title' #title='ngModel' minlength="5"  required>
+                <div *ngIf ='(title.touched || title.dirty) && title.errors'>
+                    <div *ngIf='title.errors.required' class='alert alert-danger'>You must enter a title</div>
+                    <div *ngIf='title.errors.minlength' class='alert alert-danger'>Title must at leaste {{title.errors.minlength.requiredLength}} characters. You only have {{title.errors.minlength.actualLength}} characters</div>
+                </div>
+            </div>
+            <div class="form-group">          
+                <label for="">Description</label>
+                <input id='description' type="text" class="form-control" name='description' [(ngModel)]='item.description' #description='ngModel' minlength='10' required>
+                <div *ngIf ='(description.touched || description.dirty) && description.errors'>
+                    <div *ngIf='description.errors.required' class='alert alert-danger'>You must enter a description</div>
+                    <div *ngIf='description.errors.minlength' class='alert alert-danger'>description must at leaste {{description.errors.minlength.requiredLength}} characters. You only have {{description.errors.minlength.actualLength}} characters</div>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="">Users</label>
+                <select name='tags' [(ngModel)]='item.tags'>
+                    <option [value]="user._id" *ngFor='let user of users'>{{user.name}}</option>
+                </select>
+            </div>
+            <button  [disabled]=newItem.invalid class="btn btn-md btn-success">Submit</button>
+        </form>
+    </fieldset>
+<h3>Before I die I want too</h3>
+<div *ngIf='current'>
+    <div *ngFor='let item of current.items'>
+        <input style="display: inline-block" *ngIf='item.status === false' type="checkbox" unchecked>
+        <input style="display: inline-block" *ngIf='item.status === true' type="checkbox" checked>
+      <p style="display: inline-block">{{ item.postedBy.name }} {{ item.title }} {{ item.description }} - {{ item.createdAt | date }}</p>
+    </div>
+
+
+<div *ngFor='let user of users'>
+  <a [routerLink]="['/details', user._id]">{{user.name}}</a>
+</div>
+
+</div>

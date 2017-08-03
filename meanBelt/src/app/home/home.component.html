@@ -1,0 +1,30 @@
+  <section class="col-md-6">
+    <fieldset>
+      <legend>Bucket Lists</legend>
+      <form (submit)='onLogin(login.value)' #login='ngForm' class="form-horizontal">
+        <div class="form-group">
+          <label for="" class="col-md-4 control-label">Name</label>
+          <div class="col-md-6">
+          <input class="form-control input-md" type="text" name='name' #name='ngModel' (ngModel)='user.name' >
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="button1id"></label>
+          <div class="col-md-8">
+            <button  *ngIf='login.valid' id="button2id" class="btn btn-success">Enter</button>
+          </div>
+        </div>
+      </form>
+    </fieldset>
+  </section>
+
+  <section class='row'>
+    
+
+  <div *ngIf='loginErrors' class='col-md-6'>
+    <ul class="alert alert-danger">
+      <li>{{loginErrors}}</li>
+    </ul>
+  </div>
+  </section>
+
